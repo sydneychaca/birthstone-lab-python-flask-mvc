@@ -3,6 +3,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from model import month_choice_message
 import model
 
 
@@ -15,3 +16,14 @@ app = Flask(__name__)
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/results', methods = ["GET", "POST"])
+def results():
+    print (request.form["birthstone"])
+    # props = {
+    #     'sound': 'roar'
+    # }
+    user_choice = request.form["birthstone"]
+    message = month_choice_message(user_choice)
+    return render_template("results.html", message = message)
+
